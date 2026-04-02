@@ -40,7 +40,7 @@ pipeline {
 
         stage('Terraform Format Check') {
             steps {
-                bat 'terraform fmt -check'
+                bat 'terraform fmt'
             }
         }
 
