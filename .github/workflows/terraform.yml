@@ -74,3 +74,17 @@ jobs:
         if: github.event.inputs.action == 'apply'
         run: |
           terraform output || true
+
+      - name: Post Cleanup (Credentials + Workspace)
+        if: always()
+        run: |
+          echo "Clearing AWS credentials..."
+          unset AWS_ACCESS_KEY_ID
+          unset AWS_SECRET_ACCESS_KEY
+          unset AWS_SESSION_TOKEN
+
+          echo "Cleaning Terraform files..."
+          rm -rf .terraform
+          rm -f terraform.tfstate terraform.tfstate.backup tfplan
+
+          echo "Workspace cleanup done ✅"
